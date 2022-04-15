@@ -20,10 +20,9 @@ final class CacheViewModel: ObservableObject {
     
     enum State {
         case loading
-        case loaded(private: [Any], shared: [Any])
+        case loaded(private: [Cache], shared: [Cache])
         case error(Error)
     }
-    
     // MARK: - Properties
     
     /// State as directly observable by the view.
@@ -43,6 +42,8 @@ final class CacheViewModel: ObservableObject {
     init(state: State = .loading) {
         self.state = state
     }
+    
+    /// In order to load in the user's caches and the shared caches, we need to perform a fetch request for
     
     func initialization() async {
         // fetch the record zone from iCloud container.

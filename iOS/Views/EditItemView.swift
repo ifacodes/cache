@@ -61,11 +61,11 @@ struct EditItemView: View {
                                     .foregroundColor(.secondary)
                             }
                         }
-                        NavigationLink(destination: CategorySelect(category: $item.belongsTo)) {
+                        NavigationLink(destination: CategorySelect(category: $item.category)) {
                             HStack {
                                 Label("Category",systemImage: "tag").labelStyle(.iconOnly)
                                 Spacer()
-                                Text(item.belongsTo?.name ?? "None")
+                                Text(item.category?.name ?? "None")
                                     .foregroundColor(.secondary)
                             }
                         }

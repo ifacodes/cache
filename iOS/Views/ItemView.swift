@@ -14,7 +14,7 @@ struct WrapInNavigationView: ViewModifier {
             content
         } else {
             NavigationView {
-                content.navigationBarHidden(true)
+                content
             }
         }
     }
@@ -33,21 +33,22 @@ struct ItemView: View {
     let title = "Title"
     @State private var image: UIImage?
     
-    init(_ item: Item) {
-        self.item = item
-    }
-    
     var body: some View {
             VStack(spacing: 0) {
-                if let data = item.image {
-                    if let image = UIImage(data: data) {
-                        if let image = Image(uiImage: image) { image.resizable().scaledToFill().frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity).aspectRatio(1, contentMode: .fill).frame(width: 200, height: 200).clipped().clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous)).padding(.top) 
-                        }
-                    }
-                }
                 Form {
                     Section {
-                        
+                        HStack {
+                            Spacer()
+                            if let data = item.image {
+                                if let image = UIImage(data: data) {
+                                    if let image = Image(uiImage: image) { image.resizable().scaledToFill().frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity).aspectRatio(1, contentMode: .fill).frame(width: 200, height: 200).clipped().clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                                    }
+                                }
+                            }
+                            Spacer()
+                        }
+                    }.listRowInsets(EdgeInsets()).listRowBackground(Color.clear)
+                    Section {
                         HStack {
                             Label("Box",systemImage: "shippingbox").labelStyle(.iconOnly)
                             Spacer()
@@ -65,19 +66,31 @@ struct ItemView: View {
                         HStack {
                             Label("Category",systemImage: "tag").labelStyle(.iconOnly)
                             Spacer()
-                            Text(item.belongsTo?.name ?? "None")
+                            Text(item.category?.name ?? "None")
                                 .foregroundColor(.secondary)
                         }
-                        
+                    }
+                    Section {
+                        Label("priceless", systemImage: "dollarsign.circle")
+                        Label("buner coloured", systemImage: "paintbrush")
+                        Label("buner sized", systemImage: "move.3d")
+                        Label("as heavy as a buner", systemImage: "scalemass")
+                    } header: {
+                        Label("Details", systemImage: "")
+                    }
+                    Section {
+                        Text("A thing...")
+                        Text("Another thing...")
+                    } header: {
+                        Label("Attachments", systemImage: "paperclip")
                     }
                 }.listStyle(.grouped)
                 Text("\(item.timestamp!, formatter: itemFormatter)")
                     .font(.subheadline)
-                    .foregroundColor(Color.gray)
+                    .foregroundColor(Color.gray).padding(.top, 10)
                 
             }
-            .background(Color(UIColor.systemGroupedBackground))
-            .iPadNavigation().navigationTitle(item.name).navigationBarTitleDisplayMode(.inline).toolbar {
+            .navigationTitle(item.name).navigationBarTitleDisplayMode(.inline).toolbar {
                 Button(action: {editSettings.toggle()}) {
                     if editSettings { Text("Done") }else { Text("Edit")}
                 }.fullScreenCover(isPresented: $editSettings, onDismiss: {do {
@@ -115,6 +128,6 @@ struct ItemView_Previews: PreviewProvider {
         let image = UIImage(named: "IMG_0556")
         let data = image?.jpegData(compressionQuality: 1.0)
         testItem.image = data
-        return ItemView(testItem)
+        return ItemView(item: testItem)
     }
 }

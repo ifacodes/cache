@@ -26,7 +26,7 @@ struct AllItems: View {
             List {
                 ForEach(items) { item in
                     NavigationLink(item.name) {
-                        ItemView(item)
+                        ItemView(item: item)
                     }
                 }
             }

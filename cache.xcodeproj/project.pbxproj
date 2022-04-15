@@ -14,7 +14,7 @@
 		A80B677827E2448A00D45B27 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B677727E2448A00D45B27 /* Node.swift */; };
 		A80B677B27E28ABD00D45B27 /* OutlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B677A27E28ABD00D45B27 /* OutlineViewController.swift */; };
 		A80B677D27E28AF700D45B27 /* OutlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B677C27E28AF700D45B27 /* OutlineView.swift */; };
-		A80B678027E28F4500D45B27 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B677F27E28F4500D45B27 /* Cache.swift */; };
+		A80B678027E28F4500D45B27 /* CacheView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B677F27E28F4500D45B27 /* CacheView.swift */; };
 		A8103AC727E03775006EDB5C /* BoxList2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8103AC627E03775006EDB5C /* BoxList2.swift */; };
 		A81A977127D2C65A0029EC4E /* BoxList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81A977027D2C65A0029EC4E /* BoxList.swift */; };
 		A81D789127E88E6700CA8032 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81D789027E88E6700CA8032 /* Alert.swift */; };
@@ -57,6 +57,10 @@
 		A8A7F96427E81823004265D6 /* SheeKit in Frameworks */ = {isa = PBXBuildFile; productRef = A8A7F96327E81823004265D6 /* SheeKit */; };
 		A8B2119327FDF7AE00993E3D /* CloudKitShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B2119227FDF7AE00993E3D /* CloudKitShareView.swift */; };
 		A8B2119827FE1B4100993E3D /* CacheViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B2119727FE1B4100993E3D /* CacheViewModel.swift */; };
+		A8B211E3280A2F7500993E3D /* Cache+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B211E1280A2F7500993E3D /* Cache+CoreDataClass.swift */; };
+		A8B211E4280A2F7500993E3D /* Cache+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B211E2280A2F7500993E3D /* Cache+CoreDataProperties.swift */; };
+		A8B211E5280A2F7900993E3D /* Cache+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B211E2280A2F7500993E3D /* Cache+CoreDataProperties.swift */; };
+		A8B211E6280A2F7900993E3D /* Cache+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B211E1280A2F7500993E3D /* Cache+CoreDataClass.swift */; };
 		A8B433B127E5CF5B00DB6311 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = A8B433B027E5CF5B00DB6311 /* Introspect */; };
 		A8D43B0327CC698500883979 /* ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D43B0227CC698500883979 /* ItemView.swift */; };
 		A8D43B0527CC8BAF00883979 /* BoxSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D43B0427CC8BAF00883979 /* BoxSelectView.swift */; };
@@ -94,7 +98,7 @@
 		A80B677727E2448A00D45B27 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		A80B677A27E28ABD00D45B27 /* OutlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineViewController.swift; sourceTree = "<group>"; };
 		A80B677C27E28AF700D45B27 /* OutlineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineView.swift; sourceTree = "<group>"; };
-		A80B677F27E28F4500D45B27 /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
+		A80B677F27E28F4500D45B27 /* CacheView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheView.swift; sourceTree = "<group>"; };
 		A8103AC627E03775006EDB5C /* BoxList2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxList2.swift; sourceTree = "<group>"; };
 		A81A977027D2C65A0029EC4E /* BoxList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxList.swift; sourceTree = "<group>"; };
 		A81D789027E88E6700CA8032 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
@@ -133,6 +137,8 @@
 		A8A269FB27D19FAB00285701 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A8B2119227FDF7AE00993E3D /* CloudKitShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitShareView.swift; sourceTree = "<group>"; };
 		A8B2119727FE1B4100993E3D /* CacheViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheViewModel.swift; sourceTree = "<group>"; };
+		A8B211E1280A2F7500993E3D /* Cache+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cache+CoreDataClass.swift"; sourceTree = "<group>"; };
+		A8B211E2280A2F7500993E3D /* Cache+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cache+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		A8D43B0227CC698500883979 /* ItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemView.swift; sourceTree = "<group>"; };
 		A8D43B0427CC8BAF00883979 /* BoxSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxSelectView.swift; sourceTree = "<group>"; };
 		A8DB30AD27D3F58C002C06DF /* BoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxView.swift; sourceTree = "<group>"; };
@@ -183,7 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				A80B184F27EA1F5900979C7D /* CacheViewState.swift */,
-				A80B677F27E28F4500D45B27 /* Cache.swift */,
+				A80B677F27E28F4500D45B27 /* CacheView.swift */,
 				A80B184A27EA1EDA00979C7D /* CacheList.swift */,
 				A80B184C27EA1EE600979C7D /* CacheSearch.swift */,
 			);
@@ -342,6 +348,8 @@
 		A853609027C9C3FD002F3179 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				A8B211E1280A2F7500993E3D /* Cache+CoreDataClass.swift */,
+				A8B211E2280A2F7500993E3D /* Cache+CoreDataProperties.swift */,
 				A87EE76D27E721C40027424E /* Category+CoreDataClass.swift */,
 				A87EE76E27E721C40027424E /* Category+CoreDataProperties.swift */,
 				A853609127C9C512002F3179 /* Item+CoreDataClass.swift */,
@@ -554,11 +562,13 @@
 				A8B2119827FE1B4100993E3D /* CacheViewModel.swift in Sources */,
 				A87EE76F27E7236D0027424E /* Category+CoreDataClass.swift in Sources */,
 				A8E011C727E708D7003BC175 /* FilterMenu.swift in Sources */,
+				A8B211E4280A2F7500993E3D /* Cache+CoreDataProperties.swift in Sources */,
 				A853609527C9C512002F3179 /* Item+CoreDataClass.swift in Sources */,
 				A853606227C96EFA002F3179 /* cacheApp.swift in Sources */,
 				A8F99E9727CD66FC002FC1CF /* LocationSelectView.swift in Sources */,
 				A81D789127E88E6700CA8032 /* Alert.swift in Sources */,
 				A853606627C96EFA002F3179 /* Persistence.swift in Sources */,
+				A8B211E3280A2F7500993E3D /* Cache+CoreDataClass.swift in Sources */,
 				A80B184827E90C4D00979C7D /* BoxList.swift in Sources */,
 				A860AAD827ECD91A00CDA60D /* CloudKitShareButton.swift in Sources */,
 				A8D43B0527CC8BAF00883979 /* BoxSelectView.swift in Sources */,
@@ -566,7 +576,7 @@
 				A8E011CC27E709BB003BC175 /* CreateBox.swift in Sources */,
 				A87EE77527E723F50027424E /* CategorySelect.swift in Sources */,
 				A80B185027EA1F5900979C7D /* CacheViewState.swift in Sources */,
-				A80B678027E28F4500D45B27 /* Cache.swift in Sources */,
+				A80B678027E28F4500D45B27 /* CacheView.swift in Sources */,
 				A81DD2FA27E2B2D400B160D1 /* Search.swift in Sources */,
 				A853607F27C973BD002F3179 /* cache.xcdatamodeld in Sources */,
 				A80B184B27EA1EDA00979C7D /* CacheList.swift in Sources */,
@@ -595,6 +605,7 @@
 				A853609627C9C512002F3179 /* Item+CoreDataClass.swift in Sources */,
 				A853606327C96EFA002F3179 /* cacheApp.swift in Sources */,
 				A80B677D27E28AF700D45B27 /* OutlineView.swift in Sources */,
+				A8B211E5280A2F7900993E3D /* Cache+CoreDataProperties.swift in Sources */,
 				A853606727C96EFA002F3179 /* Persistence.swift in Sources */,
 				A8D43B0327CC698500883979 /* ItemView.swift in Sources */,
 				A80B677B27E28ABD00D45B27 /* OutlineViewController.swift in Sources */,
@@ -602,6 +613,7 @@
 				A87EE77227E723710027424E /* Category+CoreDataProperties.swift in Sources */,
 				A853608027C973BD002F3179 /* cache.xcdatamodeld in Sources */,
 				A87EE77027E7236E0027424E /* Category+CoreDataClass.swift in Sources */,
+				A8B211E6280A2F7900993E3D /* Cache+CoreDataClass.swift in Sources */,
 				A81A977127D2C65A0029EC4E /* BoxList.swift in Sources */,
 				A83F51F027CB58A100E898C5 /* ContentView.swift in Sources */,
 				A8103AC727E03775006EDB5C /* BoxList2.swift in Sources */,

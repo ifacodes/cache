@@ -56,6 +56,11 @@ struct CacheList: View {
                 .listStyle(.inset)
                 .toolbar {
                     ToolbarItemGroup(placement: .navigationBarTrailing) {
+                        Button() {
+                            // TODO: Cache Selection
+                        } label: {
+                            Label("Caches", systemImage: "square.grid.2x2")
+                        }
                         CloudKitShareButton()
                         Menu() {
                             // TODO: Implement Creation System
@@ -76,13 +81,9 @@ struct CacheList: View {
                             Label("Add", systemImage: "plus").labelStyle(.iconOnly)
                         }
                     }
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button() {
-                            // TODO: Cache Selection
-                        } label: {
-                            Label("Caches", systemImage: "square.grid.2x2")
-                        }
-                    }
+//                    ToolbarItem(placement: .navigationBarLeading) {
+
+//                    }
                 }
                 .navigationViewStyle(DoubleColumnNavigationViewStyle())
                 .fullScreenCover(isPresented: $itemConfig.isPresented, onDismiss: {
@@ -111,6 +112,7 @@ struct CacheList: View {
             if #available(iOS 14.0, *) {
                 svc.preferredDisplayMode = UISplitViewController.DisplayMode.oneBesideSecondary
                 svc.preferredSplitBehavior = .tile
+//                svc.displayModeButtonVisibility = .never
             } else {
                 svc.preferredDisplayMode = .allVisible
                 svc.displayModeButtonItem.customView = UIView(frame: CGRect(x: 0, y:0, width: 0, height: 0))

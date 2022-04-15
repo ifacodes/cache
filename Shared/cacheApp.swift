@@ -19,7 +19,7 @@ struct cacheApp: App {
     
     var body: some Scene {
         WindowGroup {
-            Cache().environment(\.managedObjectContext, persistenceController.container.viewContext)
+            CacheView().environment(\.managedObjectContext, persistenceController.container.viewContext)
         }.onChange(of: scenePhase) { _ in
             persistenceController.save()
         }

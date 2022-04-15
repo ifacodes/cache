@@ -10,7 +10,7 @@ import SwiftUI
 struct CacheSearch: View {
     @FetchRequest var items: FetchedResults<Item>
     @Environment(\.dismissSearch) var dismiss
-    @EnvironmentObject var cacheViewModel: CacheViewModel
+    @EnvironmentObject var cacheViewState: CacheViewState
     
     @Binding var query: String
    
@@ -33,7 +33,7 @@ struct CacheSearch: View {
                 Section {
                     ForEach(items) { item in
                         NavigationLink(item.name) {
-                            ItemView(item)
+                            ItemView(item: item)
                         }
                     }
                 } header: {
@@ -49,7 +49,7 @@ struct CacheSearch: View {
             }
         }.onDisappear {
             if UIDevice.current.userInterfaceIdiom == .pad {
-                cacheViewModel.gotoRootView()
+                cacheViewState.gotoRootView()
             }
         }
     }

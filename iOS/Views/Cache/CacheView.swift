@@ -37,7 +37,6 @@ struct UIKitShowSidebar: UIViewRepresentable {
 
 struct NothingView: View {
     @State var showSidebar: Bool = false
-    
     var body: some View {
         Text("Woops! Nothing to see here!")
         if UIDevice.current.userInterfaceIdiom == .pad {
@@ -77,7 +76,7 @@ extension UIApplication {
 
 // MARK: Cache View
 
-struct Cache: View {
+struct CacheView: View {
     
     @State private var query: String = ""
     
@@ -99,6 +98,6 @@ struct Cache: View {
 
 struct Cache_Previews: PreviewProvider {
     static var previews: some View {
-        Cache().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext).previewInterfaceOrientation(.portrait)
+        CacheView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext).previewInterfaceOrientation(.portrait)
     }
 }

@@ -34,7 +34,7 @@ struct BoxList: View {
             List {
                 ForEach(box.itemsSet.sorted(by: sort), id: \.name) { item in
                     NavigationLink(item.name) {
-                        ItemView(item)
+                        ItemView(item: item)
                     }
                 }
             }
