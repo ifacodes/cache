@@ -39,7 +39,16 @@ struct CacheList: View {
                             .navigationTitle("All Items")
                         }
                         NavigationLink("Unboxed") {
-                            UnboxedItems()
+                            List {
+                                ForEach(cache.itemsSet.filter{$0.box == nil}) { item in
+                                    NavigationLink(item.name) {
+                                        ItemView(item: item)
+                                    }
+                                }
+                            }
+                            .listStyle(.insetGrouped)
+                            .navigationBarTitleDisplayMode(.inline)
+                            .navigationTitle("All Items")
                         }
                     }
                     Section {
