@@ -54,7 +54,16 @@ struct CacheList: View {
                     Section {
                         ForEach(cache.boxSet) { box in
                             NavigationLink("Box \(box.name)") {
-                                BoxList(box: box)
+                                List {
+                                    ForEach(box.itemsSet) { item in
+                                        NavigationLink(item.name) {
+                                            ItemView(item: item)
+                                        }
+                                    }
+                                }
+                                .listStyle(.insetGrouped)
+                                .navigationBarTitleDisplayMode(.inline)
+                                .navigationTitle(box.name)
                             }
                         }
                     } header: {
@@ -75,14 +84,7 @@ struct CacheList: View {
                                 itemConfig.present()
                             }
                             Button("New Box") {
-                                let newBox = Box(context: viewContext)
-                                newBox.timestamp = Date()
-                                newBox.name = nextBoxName()
-                                do {
-                                    try viewContext.save()
-                                } catch {                                let nsError = error as NSError
-                                        fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-                                }
+                                PersistenceController.shared.createBox()
                             }
                         }  label: {
                             Label("Add", systemImage: "plus").labelStyle(.iconOnly)
@@ -110,6 +112,8 @@ struct CacheList: View {
               }
     }
     
+    ///  add alphabetical box name
+    ///  this is an optional feature enabled in settings
     private func nextBoxName() -> String {
         
         func inc(_ name: String) -> String {

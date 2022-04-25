@@ -33,7 +33,9 @@ struct PersistenceController {
         let newItem = Item(context: viewContext)
         newItem.timestamp = Date()
         newItem.name = "Test With Box"
-        newItem.box = newBox
+        newBox.addToItems(newItem)
+        cache.addToItems(newItem)
+        cache.addToBoxes(newBox)
         let newCategory = Category(context: viewContext)
         newCategory.name = "Clothing"
         result.save()

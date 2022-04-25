@@ -83,12 +83,30 @@ struct CacheMenu: View {
     }
     
     var body: some View {
-        List {
+        ZStack {
+            Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all)
             if !caches.isEmpty {
-                userList
+                List {
+                    userList
+                }
+                .listStyle(.sidebar)
+            } else {
+                VStack{
+                    Spacer()
+                    VStack {
+                        Text("Create a cache to get started!").font(.largeTitle).bold().multilineTextAlignment(.center).padding(.bottom, 60)
+                        
+                    Button {
+                        config.present()
+                    } label: {
+                        Label("New Cache", systemImage: "plus.circle").labelStyle(.iconOnly).font(.system(size: 60, weight: .light))
+                    }
+                    }
+                    Spacer()
+                    Spacer()
+                }
             }
         }
-        .listStyle(.sidebar)
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button {

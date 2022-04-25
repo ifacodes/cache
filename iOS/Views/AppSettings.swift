@@ -34,7 +34,7 @@ struct AppSettings: View {
                             Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all)
                             VStack {
                                 // App Icon
-                                Image(uiImage: Bundle.main.icon ?? UIImage()).clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+                                Image(uiImage: Bundle.main.icon ?? UIImage()).clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous)).padding(.top, 40)
                                 VStack {
                                     Text("Magpie 0.12.6").padding(.bottom, 0.1)
                                     Text("ifacodes")
