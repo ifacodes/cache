@@ -13,36 +13,37 @@ struct CacheList: View {
     @Environment(\.dismissSearch) var dismissSearch
     @Environment(\.managedObjectContext) var viewContext
     
+    @ObservedObject var cache: Cache
+    
     @State private var itemConfig = ItemConfig()
     
-    @FetchRequest(sortDescriptors: [SortDescriptor(\.name)]) var boxes: FetchedResults<Box>
-    
-    @Binding var query: String
-    
-    @EnvironmentObject var cacheViewModel: CacheViewState
-    
-    init(_ query: Binding<String>) {
-        _query = query
-    }
-    
     var body: some View {
-        NavigationView {
+ 
             if !isSearching {
                 // MARK: Default Views Section
                 List {
                     Section {
-                        NavigationLink("Recently Viewed") {
-                           Label("Not Implemented", systemImage: "exclamationmark.circle").symbolRenderingMode(.multicolor).font(.title2).foregroundColor(.secondary)
+//                        NavigationLink("Recently Viewed") {
+//                           Label("Not Implemented", systemImage: "exclamationmark.circle").symbolRenderingMode(.multicolor).font(.title2).foregroundColor(.secondary)
+//                        }
+                        NavigationLink("All Items") {
+                            List {
+                                ForEach(cache.itemsSet) { item in
+                                    NavigationLink(item.name) {
+                                        ItemView(item: item)
+                                    }
+                                }
+                            }
+                            .listStyle(.insetGrouped)
+                            .navigationBarTitleDisplayMode(.inline)
+                            .navigationTitle("All Items")
                         }
-                        NavigationLink("All Items", tag: "All Items", selection: $cacheViewModel.currentView) {
-                            AllItems()
-                        }
-                        NavigationLink("Unboxed", tag: "Unboxed", selection: $cacheViewModel.currentView) {
+                        NavigationLink("Unboxed") {
                             UnboxedItems()
                         }
                     }
                     Section {
-                        ForEach(boxes) { box in
+                        ForEach(cache.boxSet) { box in
                             NavigationLink("Box \(box.name)") {
                                 BoxList(box: box)
                             }
@@ -51,17 +52,14 @@ struct CacheList: View {
                         Text("Boxes")
                     }
                 }
-                .padding(.top)
                 .navigationBarTitleDisplayMode(.inline)
-                .listStyle(.inset)
+                .navigationTitle(cache.name)
+                .listStyle(.insetGrouped)
                 .toolbar {
                     ToolbarItemGroup(placement: .navigationBarTrailing) {
-                        Button() {
-                            // TODO: Cache Selection
-                        } label: {
-                            Label("Caches", systemImage: "square.grid.2x2")
+                        Button {} label: {
+                            Label("Share Cache", systemImage: "square.and.arrow.up")
                         }
-                        CloudKitShareButton()
                         Menu() {
                             // TODO: Implement Creation System
                             Button("New Item") {
@@ -81,11 +79,7 @@ struct CacheList: View {
                             Label("Add", systemImage: "plus").labelStyle(.iconOnly)
                         }
                     }
-//                    ToolbarItem(placement: .navigationBarLeading) {
-
-//                    }
                 }
-                .navigationViewStyle(DoubleColumnNavigationViewStyle())
                 .fullScreenCover(isPresented: $itemConfig.isPresented, onDismiss: {
                     let newItem = Item(context: viewContext)
                     newItem.timestamp = Date()
@@ -102,22 +96,9 @@ struct CacheList: View {
                 }) {
                     CreateItem(itemConfig: $itemConfig)
                 }
-            } else {
-                CacheSearch($query)
-            }
-            NothingView()
-        }
-        .introspectNavigationController{ nc in
-            guard let svc = nc.splitViewController else {return}
-            if #available(iOS 14.0, *) {
-                svc.preferredDisplayMode = UISplitViewController.DisplayMode.oneBesideSecondary
-                svc.preferredSplitBehavior = .tile
-//                svc.displayModeButtonVisibility = .never
-            } else {
-                svc.preferredDisplayMode = .allVisible
-                svc.displayModeButtonItem.customView = UIView(frame: CGRect(x: 0, y:0, width: 0, height: 0))
-            }
-        }
+//            } else {
+//                CacheSearch($query)
+              }
     }
     
     private func nextBoxName() -> String {
@@ -138,12 +119,18 @@ struct CacheList: View {
             return rest + tail
         }
         
-        if boxes.isEmpty {
+        if cache.boxes?.underestimatedCount == 0 {
             return "A"
         } else {
-            let lastName = boxes.last!.name
+            let lastName = cache.boxSet.last!.name
             return inc(lastName)
         }
     }
     
 }
+
+//struct Previews_CacheList_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CacheList().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+//    }
+//}

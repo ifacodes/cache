@@ -34,15 +34,16 @@ struct CacheMenu: View {
         Section {
             ForEach(caches, id: \.self) {cache in
                 NavigationLink {
-                    List(cache.boxSet) {box in
-                        Section {
-                            ForEach(box.itemsSet) {item in
-                                Text(item.name)
-                            }
-                        } header: {
-                            Text(box.name)
-                        }
-                    }.navigationBarTitleDisplayMode(.inline).navigationTitle(cache.name)
+                    CacheList(cache: cache)
+//                    List(cache.boxSet) {box in
+//                        Section {
+//                            ForEach(box.itemsSet) {item in
+//                                Text(item.name)
+//                            }
+//                        } header: {
+//                            Text(box.name)
+//                        }
+//                    }.navigationBarTitleDisplayMode(.inline).navigationTitle(cache.name)
                 } label: {
                     Label{Text(cache.name)} icon: {
                         if case .symbol(let icon) = cache.icon {

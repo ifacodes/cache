@@ -89,7 +89,8 @@ struct CacheView: View {
     }()
     
     var body: some View {
-        CacheList($query).searchable(text: $query).environmentObject(cacheViewState)
+        //CacheList().searchable(text: $query).environmentObject(cacheViewState)
+        EmptyView()
     }
     
 }

@@ -21,11 +21,16 @@ struct PersistenceController {
         cache.name = "Public Storage"
         cache.iconString = "symbol:house.circle.fill"
         cache.uiColor = UIColor(Color.orange)
+        let noBox = Box(context: viewContext)
+        noBox.name = "Unboxed Items"
+        noBox.status = 0
+        cache.addToBoxes(noBox)
         for i in 0..<10 {
             let newItem = Item(context: viewContext)
             newItem.timestamp = Date()
             newItem.name = "Test \(i)"
             cache.addToItems(newItem)
+            noBox.addToItems(newItem)
         }
         let newBox = Box(context: viewContext)
         newBox.name = "A"
