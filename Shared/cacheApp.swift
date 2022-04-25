@@ -19,7 +19,9 @@ struct cacheApp: App {
     
     var body: some Scene {
         WindowGroup {
-            CacheView().environment(\.managedObjectContext, persistenceController.container.viewContext)
+            NavigationView{
+            CacheMenu()
+            }.environment(\.managedObjectContext, persistenceController.container.viewContext)
         }.onChange(of: scenePhase) { _ in
             persistenceController.save()
         }
@@ -64,9 +66,9 @@ class SceneDelegate: NSObject, UIWindowSceneDelegate {
             return
         }
         
-        let container = CKContainer(identifier: cloudKitShareMetadata.containerIdentifier)
-        let operation = CKAcceptSharesOperation(shareMetadatas: [cloudKitShareMetadata])
-        
+//        let container = CKContainer(identifier: cloudKitShareMetadata.containerIdentifier)
+//        let operation = CKAcceptSharesOperation(shareMetadatas: [cloudKitShareMetadata])
+//        
         debugPrint("Accepting CloudKit Share with metadata: \(cloudKitShareMetadata)")
     }
     

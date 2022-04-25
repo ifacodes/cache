@@ -38,6 +38,7 @@ extension Item {
     @NSManaged public var locationRaw: Int64
     @NSManaged public var uuid: UUID
     @NSManaged public var category: Category?
+    @NSManaged public var cache: Cache?
     
     public override func awakeFromInsert() {
         super.awakeFromInsert()

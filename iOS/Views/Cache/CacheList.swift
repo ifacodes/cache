@@ -32,7 +32,7 @@ struct CacheList: View {
                 List {
                     Section {
                         NavigationLink("Recently Viewed") {
-                            Label("Not Implemented", systemImage: "exclamationmark.circle").symbolRenderingMode(.multicolor).font(.title2).foregroundColor(.secondary)
+                           Label("Not Implemented", systemImage: "exclamationmark.circle").symbolRenderingMode(.multicolor).font(.title2).foregroundColor(.secondary)
                         }
                         NavigationLink("All Items", tag: "All Items", selection: $cacheViewModel.currentView) {
                             AllItems()
