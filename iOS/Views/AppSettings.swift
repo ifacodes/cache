@@ -24,6 +24,7 @@ struct AppSettings: View {
     @State private var deleteAlertToggle: Bool = false
     @State private var iCloudSyncIsOff: Bool = false
     @State private var error: Error?
+    @AppStorage("custom_box_name") var customBoxNameToggle: Bool = true
     
     var body: some View {
         ZStack {
@@ -44,6 +45,16 @@ struct AppSettings: View {
                             }
                         }.navigationTitle("About")
                     }
+                }
+                Section {
+                    Toggle(isOn: $customBoxNameToggle) {
+                        Label{ Text("Custom Box Name")} icon: {
+                            Image(systemName: "rectangle.and.pencil.and.ellipsis"
+                            ).symbolRenderingMode(.palette).foregroundStyle(.primary, .tint)
+                        }.foregroundColor(.primary)
+                    }
+                } footer: {
+                    Text("Toggles custom name dialog for boxes.")
                 }
 //                Section {
 //                    Toggle(isOn: $iCloudSyncIsOff) {

@@ -11,7 +11,7 @@ import SwiftUI
 
 struct PersistenceController {
     // Makes a Singleton
-    static private(set) var shared = PersistenceController()
+    static let shared = PersistenceController()
     
     // Test Config for SwiftUI Previews
     static var preview: PersistenceController = {
@@ -76,7 +76,7 @@ struct PersistenceController {
         UIColorValueTransformer.register()
         
         container = NSPersistentCloudKitContainer(name: "cache")
-        try! container.persistentStoreCoordinator.destroyPersistentStore(at: container.persistentStoreDescriptions.first!.url!, type: .sqlite)
+        //try! container.persistentStoreCoordinator.destroyPersistentStore(at: container.persistentStoreDescriptions.first!.url!, type: .sqlite)
         
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
@@ -154,15 +154,16 @@ extension PersistenceController {
     func createCache(name: String, icon: CacheIcon, color: Color?) {
         let context = container.viewContext
         
+        context.perform{
+            
+            let cache = Cache(context: context)
+            cache.name = name
+            cache.icon = icon
+            cache.uiColor = UIColor(color!)
+            
+            self.save()
         
-        let cache = Cache(context: context)
-        cache.name = name
-        cache.icon = icon
-        cache.uiColor = UIColor(color!)
-        
-        save()
-        
-        
+        }
         
     }
     
@@ -170,8 +171,29 @@ extension PersistenceController {
         
     }
     
-    func createBox() {
+    func createBox(name: String, cache: Cache) {
+        let context = container.viewContext
         
+        context.perform {
+            let box = Box(context: context)
+            
+            box.name = name
+            box.status = 0
+            box.timestamp = Date()
+            
+            cache.addToBoxes(box)
+            
+            self.save()
+        }
+    }
+    
+    func deleteBox(box: Box) {
+        let context = container.viewContext
+        
+        context.perform {
+            context.delete(box)
+            self.save()
+        }
     }
     
 }

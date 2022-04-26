@@ -13,6 +13,10 @@ struct CacheList: View {
     @Environment(\.dismissSearch) var dismissSearch
     @Environment(\.managedObjectContext) var viewContext
     
+    @AppStorage("custom_box_name") var customBoxNameToggle: Bool = true
+    @State private var displayBoxNameAlert: Bool = false
+    @State private var customBoxName: String = ""
+    
     @ObservedObject var cache: Cache
     
     @State private var itemConfig = ItemConfig()
@@ -64,6 +68,12 @@ struct CacheList: View {
                                 .listStyle(.insetGrouped)
                                 .navigationBarTitleDisplayMode(.inline)
                                 .navigationTitle(box.name)
+                            }.swipeActions {
+                                Button("Delete", role: .destructive) {
+                                    withAnimation {
+                                        PersistenceController.shared.deleteBox(box: box)
+                                    }
+                                }
                             }
                         }
                     } header: {
@@ -84,12 +94,19 @@ struct CacheList: View {
                                 itemConfig.present()
                             }
                             Button("New Box") {
-                                PersistenceController.shared.createBox()
+//                                if customBoxNameToggle {
+//                                    displayBoxNameAlert = true
+//                                } else {
+                                    PersistenceController.shared.createBox(name: nextBoxName(), cache: cache)
+                                //}
                             }
                         }  label: {
                             Label("Add", systemImage: "plus").labelStyle(.iconOnly)
                         }
                     }
+                }
+                .alert(isPresented: $displayBoxNameAlert, preferences: UIKitAlertPreferences(title: "New Box")) { result in
+                    PersistenceController.shared.createBox(name: result!, cache: cache)
                 }
                 .fullScreenCover(isPresented: $itemConfig.isPresented, onDismiss: {
                     let newItem = Item(context: viewContext)
