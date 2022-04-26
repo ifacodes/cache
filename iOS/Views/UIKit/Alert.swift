@@ -56,12 +56,18 @@ extension UIAlertController {
         addTextField {
             $0.placeholder = preferences.placeholder
             $0.keyboardType = preferences.keyboardType
+            $0.addTarget(self, action: #selector(self.alertTextFieldDidChange(_:)), for: .editingChanged)
         }
         
         /// 5. Assign created `UIAlertAction`'s to the `UIAlertController`
+        confirmAction.isEnabled = false
         addAction(confirmAction)
         addAction(cancelAction)
         
+    }
+    
+    @objc func alertTextFieldDidChange(_ sender: UITextField) {
+        self.actions.first!.isEnabled = sender.text!.count > 0
     }
 }
 
@@ -106,6 +112,7 @@ struct UIKitAlertControllerRepresentable: UIViewControllerRepresentable {
         init(_ parent: UIKitAlertControllerRepresentable) {
             self.parent = parent
         }
+        
     }
     
 }
