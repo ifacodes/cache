@@ -51,7 +51,7 @@ class ItemConfig: ObservableObject {
         if save {
             PersistenceController.shared.createItem(name: name, description: description, image: image, dimensions: dimensions, weight: weight, cache: cache!, box: box)
         }
-        showSheet = true
+        showSheet = false
     }
 }
 
@@ -60,7 +60,7 @@ class TagConfig: ObservableObject {
     @Published var color: Color = .gray
     
     func save() {
-        PersistenceController.preview.createTag(name: name, color: color)
+        PersistenceController.shared.createTag(name: name, color: color)
     }
 }
 
@@ -220,6 +220,11 @@ struct ItemCreator: View {
                 }
             } header: {
                 ControlGroup {
+                    Button {
+                        
+                    } label: {
+                        Label("Add Box", systemImage: "shippingbox")
+                    }
                     Button {} label: {
                         Label("Add Weight", systemImage: "scalemass")
                     }.disabled(true)
@@ -250,13 +255,15 @@ struct ItemCreator: View {
                 tags
             }.toolbar {
                 ToolbarItemGroup(placement: .confirmationAction) {
-                    Button("Create") {}
+                    Button("Create") {
+                        config.dismiss(save: true)
+                    }
                 }
             }
             .navigationTitle("New Item")
             .navigationBarTitleDisplayMode(.inline)
         }.sheet(isPresented: $presentTagMenu) {
-            TagList(tagSelection: $config.tags, presentTagMenu: $presentTagMenu).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+            TagList(tagSelection: $config.tags, presentTagMenu: $presentTagMenu).environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
         }
     }
 }

@@ -50,7 +50,7 @@ struct CacheList: View {
 //            }
             Section {
                 ForEach(cache.items.sorted {
-                    $0.createdTimestamp < $1.createdTimestamp
+                    $0.createdTimestamp > $1.createdTimestamp
                 }) { item in
                     NavigationLink(item.name) {
                         ItemView()
