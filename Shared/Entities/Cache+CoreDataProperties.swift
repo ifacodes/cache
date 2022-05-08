@@ -25,24 +25,10 @@ extension Cache {
 
     @NSManaged public var name: String
     @NSManaged public var uuid: UUID
-    @NSManaged public var boxes: NSSet?
-    @NSManaged public var items: NSSet?
+    @NSManaged public var boxes: Set<Box>
+    @NSManaged public var items: Set<Item>
     @NSManaged public var iconString: String
     @NSManaged public var uiColor: UIColor?
-    
-    var itemsSet: [Item] {
-        let set = items as? Set<Item> ?? []
-        return set.sorted {
-            $0.name < $1.name
-        }
-    }
-    
-    var boxSet: [Box] {
-        let set = boxes as? Set<Box> ?? []
-        return set.sorted {
-            $0.name < $1.name
-        }
-    }
     
     var color: Color? {
         get {
@@ -123,22 +109,7 @@ extension Cache {
     }
     
     var badge: Int {
-        items?.underestimatedCount ?? 0
-    }
-    
-}
-
-@objc(UIColorValueTransformer)
-final class UIColorValueTransformer: NSSecureUnarchiveFromDataTransformer {
-    static let name = NSValueTransformerName(rawValue: String(describing: UIColorValueTransformer.self))
-    
-    override static var allowedTopLevelClasses: [AnyClass] {
-        return [UIColor.self]
-    }
-    
-    public static func register() {
-        let transformer = UIColorValueTransformer()
-        ValueTransformer.setValueTransformer(transformer, forName: name)
+        items.underestimatedCount
     }
     
 }

@@ -2,7 +2,6 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21E230" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="Box" representedClassName=".Box" syncable="YES">
         <attribute name="name" attributeType="String" defaultValueString=""/>
-        <attribute name="status" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <relationship name="cache" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Cache" inverseName="boxes" inverseEntity="Cache"/>
@@ -10,38 +9,38 @@
     </entity>
     <entity name="Cache" representedClassName="Cache" syncable="YES">
         <attribute name="cacheDescription" optional="YES" attributeType="String"/>
-        <attribute name="icon" optional="YES" attributeType="String"/>
-        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="iconString" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="uiColor" optional="YES" attributeType="Transformable" valueTransformerName="UIColorValueTransformer"/>
-        <relationship name="boxes" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Box" inverseName="cache" inverseEntity="Box"/>
-        <relationship name="items" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Item" inverseName="cache" inverseEntity="Item"/>
-    </entity>
-    <entity name="Category" representedClassName=".Category" syncable="YES">
-        <attribute name="name" attributeType="String" defaultValueString=""/>
-        <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="category" inverseEntity="Item"/>
+        <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="boxes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Box" inverseName="cache" inverseEntity="Box"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="cache" inverseEntity="Item"/>
     </entity>
     <entity name="Item" representedClassName=".Item" syncable="YES">
         <attribute name="createdTimestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="image" optional="YES" attributeType="Binary"/>
+        <attribute name="image" optional="YES" attributeType="Transformable" valueTransformerName="UIImageValueTransformer"/>
         <attribute name="itemDescription" optional="YES" attributeType="String"/>
-        <attribute name="locationRaw" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="meas_x_cm" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
+        <attribute name="meas_y_cm" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
+        <attribute name="meas_z_cm" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
         <attribute name="name" attributeType="String" defaultValueString=""/>
         <attribute name="updatedTimestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="weight_g" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
         <relationship name="box" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Box" inverseName="items" inverseEntity="Box"/>
         <relationship name="cache" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Cache" inverseName="items" inverseEntity="Cache"/>
-        <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="items" inverseEntity="Category"/>
-        <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tag" inverseName="item" inverseEntity="Tag"/>
+        <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tag" inverseName="items" inverseEntity="Tag"/>
     </entity>
-    <entity name="Tag" representedClassName="Tag" syncable="YES" codeGenerationType="class">
-        <relationship name="item" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Item" inverseName="tags" inverseEntity="Item"/>
+    <entity name="Tag" representedClassName="Tag" syncable="YES">
+        <attribute name="color" optional="YES" attributeType="Transformable" valueTransformerName="UIColorValueTransformer"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="tags" inverseEntity="Item"/>
     </entity>
     <elements>
-        <element name="Box" positionX="186.26171875" positionY="10.92578125" width="128" height="119"/>
+        <element name="Box" positionX="186.26171875" positionY="10.92578125" width="128" height="104"/>
         <element name="Cache" positionX="63" positionY="45" width="128" height="134"/>
-        <element name="Category" positionX="63" positionY="45" width="128" height="59"/>
-        <element name="Item" positionX="-63" positionY="-18" width="128" height="194"/>
-        <element name="Tag" positionX="63" positionY="72" width="128" height="44"/>
+        <element name="Item" positionX="-63" positionY="-18" width="128" height="224"/>
+        <element name="Tag" positionX="63" positionY="72" width="128" height="89"/>
     </elements>
 </model>

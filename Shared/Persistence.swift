@@ -8,6 +8,41 @@
 import CoreData
 import CloudKit
 import SwiftUI
+import Foundation
+
+// MARK: - UIColorValueTransformer
+
+@objc(UIColorValueTransformer)
+final class UIColorValueTransformer: NSSecureUnarchiveFromDataTransformer {
+    static let name = NSValueTransformerName(rawValue: String(describing: UIColorValueTransformer.self))
+    
+    override static var allowedTopLevelClasses: [AnyClass] {
+        return [UIColor.self]
+    }
+    
+    public static func register() {
+        let transformer = UIColorValueTransformer()
+        ValueTransformer.setValueTransformer(transformer, forName: name)
+    }
+    
+}
+
+// MARK: - UIImageValueTransformer
+
+@objc(UIImageValueTransformer)
+final class UIImageValueTransformer: NSSecureUnarchiveFromDataTransformer {
+    static let name = NSValueTransformerName(rawValue: String(describing: UIImageValueTransformer.self))
+    
+    override static var allowedTopLevelClasses: [AnyClass] {
+        return [UIImage.self]
+    }
+    
+    public static func register() {
+        let transformer = UIImageValueTransformer()
+        ValueTransformer.setValueTransformer(transformer, forName: name)
+    }
+    
+}
 
 struct PersistenceController {
     // Makes a Singleton
@@ -23,21 +58,39 @@ struct PersistenceController {
         cache.uiColor = UIColor(Color.orange)
         for i in 0..<10 {
             let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
+            newItem.createdTimestamp = Date()
             newItem.name = "Test \(i)"
             cache.addToItems(newItem)
         }
         let newBox = Box(context: viewContext)
         newBox.name = "A"
-        newBox.status = 0
         let newItem = Item(context: viewContext)
-        newItem.timestamp = Date()
+        newItem.createdTimestamp = Date()
         newItem.name = "Test With Box"
         newBox.addToItems(newItem)
         cache.addToItems(newItem)
         cache.addToBoxes(newBox)
-        let newCategory = Category(context: viewContext)
-        newCategory.name = "Clothing"
+        
+        for i in 0..<10 {
+            let newTag = Tag(context: viewContext)
+            newTag.uuid = UUID()
+            if i % 4 == 0 {
+                newTag.name = "Test \(i) Longer word!!"
+                newTag.color = UIColor(Color.red)
+            } else if i % 6 == 0 {
+                newTag.name = "Test \(i) REALLLLLLLLLLLY Long"
+                newTag.color = UIColor(Color.green)
+            } else {
+                newTag.name = "Test \(i)"
+                newTag.color = UIColor(Color.blue)
+            }
+            newItem.addToTags(newTag)
+        }
+//        let newTag = Tag(context: viewContext)
+//        newTag.uuid = UUID()
+//        newTag.name = "TES"
+//        newTag.color = UIColor(.gray)
+//        newItem.addToTags(newTag)
         result.save()
         return result
     }()
@@ -74,6 +127,7 @@ struct PersistenceController {
     init(inMemory: Bool = false) {
         
         UIColorValueTransformer.register()
+        UIImageValueTransformer.register()
         
         container = NSPersistentCloudKitContainer(name: "cache")
         //try! container.persistentStoreCoordinator.destroyPersistentStore(at: container.persistentStoreDescriptions.first!.url!, type: .sqlite)
@@ -92,6 +146,7 @@ struct PersistenceController {
         
         privateStoreDescription.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
         privateStoreDescription.setOption(true as NSNumber, forKey: NSPersistentStoreRemoteChangeNotificationPostOptionKey)
+        privateStoreDescription.shouldInferMappingModelAutomatically = false
         
         if !NSUbiquitousKeyValueStore.default.bool(forKey: "icloud_sync") {
             privateStoreDescription.cloudKitContainerOptions = nil
@@ -167,8 +222,33 @@ extension PersistenceController {
         
     }
     
-    func createItem() {
+    func createItem(name: String, description: String?, image: UIImage?, dimensions: [Decimal]?, weight: Decimal?, cache: Cache, box: Box?) {
+        let context = container.viewContext
         
+        context.perform {
+            let item = Item(context: context)
+            
+            item.name = name
+            item.itemDescription = description
+            item.image = image
+            item.createdTimestamp = Date()
+            item.uuid = UUID()
+            
+            if let dimensions = dimensions {
+                item.dimensions = dimensions
+            }
+            if let weight = weight {
+                item.g = weight
+            }
+            
+            cache.addToItems(item)
+            
+            if let box = box {
+                box.addToItems(item)
+            }
+            
+            self.save()
+        }
     }
     
     func createBox(name: String, cache: Cache) {
@@ -178,7 +258,6 @@ extension PersistenceController {
             let box = Box(context: context)
             
             box.name = name
-            box.status = 0
             box.timestamp = Date()
             
             cache.addToBoxes(box)
@@ -192,6 +271,19 @@ extension PersistenceController {
         
         context.perform {
             context.delete(box)
+            self.save()
+        }
+    }
+    
+    func createTag(name: String, color: Color) {
+        let context = container.viewContext
+        
+        context.perform {
+            let tag = Tag(context: context)
+            
+            tag.name = name
+            tag.color = UIColor(color)
+            
             self.save()
         }
     }

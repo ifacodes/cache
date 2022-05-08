@@ -16,23 +16,10 @@ extension Box {
         return NSFetchRequest<Box>(entityName: "Box")
     }
 
-    @NSManaged public var status: Int64
     @NSManaged public var name: String
     @NSManaged public var timestamp: Date?
-    @NSManaged public var items: NSSet?
+    @NSManaged public var items: Set<Item>
     @NSManaged public var uuid: UUID
-    
-    public override func awakeFromInsert() {
-        super.awakeFromInsert()
-        setPrimitiveValue(UUID(), forKey: (\Box.uuid)._kvcKeyPathString!)
-    }
-    
-    var itemsSet: [Item] {
-        let set = items as? Set<Item> ?? []
-        return set.sorted {
-            $0.name < $1.name
-        }
-    }
 
 }
 
@@ -57,6 +44,7 @@ extension Box : Identifiable {
 }
 
 extension Box: Comparable {
+    
     static public func <(lhs: Box, rhs: Box) -> Bool {
         (lhs.name) < (rhs.name)
     }
@@ -67,6 +55,37 @@ extension Box: Comparable {
         (lhs.name) > (rhs.name)
     }
 
+}
+
+extension Box {
+    
+    ///  add alphabetical box name
+    ///  this is an optional feature enabled in settings
+    static func nextBoxName(cache: Cache) -> String {
+        
+        func inc(_ name: String) -> String {
+            if name == "Z" {
+                return "AA"
+            }
+            var tail = String(name.last!)
+            var rest = String(name.dropLast())
+            if tail == "Z" {
+                tail = "A"
+                rest = inc(rest)
+            } else {
+                let tailScalarValue = tail.unicodeScalars.last!.value
+                tail = String(UnicodeScalar(tailScalarValue+1)!)
+            }
+            return rest + tail
+        }
+        
+        if cache.boxes.isEmpty {
+            return "A"
+        } else {
+            let lastName = cache.boxes.sorted{$0.name < $1.name}.last!.name
+            return inc(lastName)
+        }
+    }
 }
 
 

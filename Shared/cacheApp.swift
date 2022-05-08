@@ -20,8 +20,8 @@ struct cacheApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView{
-            CacheMenu()
-            }.environment(\.managedObjectContext, persistenceController.container.viewContext)
+            TagViewPreview()
+            }.environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
         }.onChange(of: scenePhase) { _ in
             persistenceController.save()
         }

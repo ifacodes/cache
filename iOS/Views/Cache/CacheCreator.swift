@@ -123,7 +123,6 @@ struct CacheCreator: View {
         NavigationView {
                 Form {
                     Section {
-                        Text("Give your new Cache a name and description, even a fancy icon and a splash of colour!").font(.subheadline).foregroundColor(Color.gray).multilineTextAlignment(.center).padding(.horizontal, 16)
                         HStack {
                             Spacer()
                             if case .symbol(let icon) = config.icon {
@@ -131,7 +130,8 @@ struct CacheCreator: View {
                             }
                             //.background(Circle().fill(config.color))
                             Spacer()
-                        }.padding(.top)
+                        }
+                        Text("Give your new Cache a name and description, even a fancy icon and a splash of colour!").font(.subheadline).foregroundColor(Color.gray).multilineTextAlignment(.center).padding(EdgeInsets(top: 32, leading: 16, bottom: 0, trailing: 16))
                     }.listRowBackground(Color.clear).listRowInsets(EdgeInsets()).listRowSeparator(.hidden)
                     TextField("Enter a name", text: $config.name).focused($focus, equals: .name)
                     TextField("Enter a description", text: $config.description).focused($focus, equals: .description)

@@ -10,8 +10,8 @@ import SwiftUI
 
 // MARK: Test Filters
 fileprivate let filters = [
-    (name: "Timestamp", descriptors: [SortDescriptor(\Item.timestamp, order: .forward)]),
-    (name: "Timestamp", descriptors: [SortDescriptor(\Item.timestamp, order: .reverse)]),
+    (name: "Timestamp", descriptors: [SortDescriptor(\Item.createdTimestamp, order: .forward)]),
+    (name: "Timestamp", descriptors: [SortDescriptor(\Item.createdTimestamp, order: .reverse)]),
     (name: "Name", descriptors: [SortDescriptor(\Item.name, order: .forward)]),
     (name: "Name", descriptors: [SortDescriptor(\Item.name, order: .reverse)])
 ]
