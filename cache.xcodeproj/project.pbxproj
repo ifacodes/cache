@@ -136,6 +136,7 @@
 		A8B2119727FE1B4100993E3D /* CacheViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheViewModel.swift; sourceTree = "<group>"; };
 		A8B211E1280A2F7500993E3D /* Cache+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cache+CoreDataClass.swift"; sourceTree = "<group>"; };
 		A8B211E2280A2F7500993E3D /* Cache+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cache+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		A8B75C152827686C000D9C8F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A8D260D2280E418D006DE8F6 /* CacheModel v. 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CacheModel v. 4.xcdatamodel"; sourceTree = "<group>"; };
 		A8D260D3280E6354006DE8F6 /* IconPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconPicker.swift; sourceTree = "<group>"; };
 		A8D260D5280E663C006DE8F6 /* sf symbols.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "sf symbols.txt"; sourceTree = "<group>"; };
@@ -259,6 +260,7 @@
 		A853602F27C96EF9002F3179 = {
 			isa = PBXGroup;
 			children = (
+				A8B75C152827686C000D9C8F /* README.md */,
 				A8D260D5280E663C006DE8F6 /* sf symbols.txt */,
 				A853607C27C96F76002F3179 /* cache--iOS--Info.plist */,
 				A853607827C96F52002F3179 /* cache (iOS).entitlements */,
